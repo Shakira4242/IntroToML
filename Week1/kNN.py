@@ -9,6 +9,7 @@ import matplotlib.image as mpimg
 import operator
 from PIL import Image
 from os import listdir
+from sklearn.neighbors import KNeighborsClassifier
 
 def classify0(inX, dataSet, labels, k):
 
@@ -129,16 +130,18 @@ def handwritingNumberDetector():
 
     # link to the directory with all our training data
     trainingFileList = listdir('digits/trainingDigits')
+    trainingFileList.pop(0)
     m = len(trainingFileList)
+
 
     # we know how long our trainingMat is so let's initialize it with zeros
     trainingMat = zeros((m,1024))
-    
+
     # In this loop we do 2 things:
         # get labels and add them to hwLabels
         # get attributes and add them to trainingMat
 
-    for i in range(1,m):
+    for i in range(0,m):
         fileNameStr = trainingFileList[i]
         fileStr = fileNameStr.split('.')[0]
         classNumStr = fileStr.split('_')[0]
@@ -160,32 +163,30 @@ def handwritingNumberDetector():
         # get attributes from the test data
         # Use the attributes as an argument to our kNN algorithm
 
-    for i in range(1,mTest):
-        fileNameStr = testFileList[i]
-        fileStr = fileNameStr.split('.')[0]
-        classNumStr = fileStr.split('_')[0]
-        vectorUnderTest = img2vector('digits/testDigits/%s' % fileNameStr)
-        classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
-        print "the classifier came back with: %s, the real answer is: %s" % (classifierResult, classNumStr)
-        if (classifierResult != classNumStr): errorCount += 1.0
-    print "\nthe total number of errors is: %d" % errorCount
-    print "\nthe total error rate is: %f" % (errorCount/float(mTest))
+    # for i in range(1,mTest):
+    #     fileNameStr = testFileList[i]
+    #     fileStr = fileNameStr.split('.')[0]
+    #     classNumStr = fileStr.split('_')[0]
+    #     vectorUnderTest = img2vector('digits/testDigits/%s' % fileNameStr)
+    #     #classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
+    #     kNN = KNeighborsClassifier(n_neighbors = 3)
+    #     kNN.fit(trainingMat,hwLabels)
+    #     classifierResult = kNN.predict(vectorUnderTest)[0]
+    #     print "the classifier came back with: %s, the real answer is: %s" % (classifierResult, classNumStr)
+    #     if (classifierResult != classNumStr): errorCount += 1.0
+    # print "\nthe total number of errors is: %d" % errorCount
+    # print "\nthe total error rate is: %f" % (errorCount/float(mTest))
 
 
-    '''
 
-    =========================
 
-         SAVE FOR LATER
-
-    =========================
-
-    img = Image.open('5_2.png')
+    img = Image.open('1.jpg')
     gray = img.convert('1')
     img = gray
     img.thumbnail((32,32), Image.ANTIALIAS)
     img.save('resizedImg.jpg')
     img = mpimg.imread('resizedImg.jpg')
+
 
     for i in range(len(img)):
         row = []
@@ -198,7 +199,8 @@ def handwritingNumberDetector():
     imgVector = img.flatten()
     print(img.shape)
 
-    classifierResult = classify0(imgVector, trainingMat, hwLabels, 7)
+    classifierResult = classify0(imgVector, trainingMat, hwLabels, 3)
     print(classifierResult)
 
-    '''
+
+
