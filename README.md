@@ -6,11 +6,10 @@
 
 ## Brief Outline
 
-### Week 1: Introduction to Python w/ Machine Learning
-	1. Python Intro: syntax + data types
-	2. 
-	3. 
-	4. 
+### Week 1: Introduction to Python with Machine Learning
+	1. Python and Library Setup
+	2. Python Syntax + Data Structures (very brief)
+	3. Handwritten digits classification using KNN
 ### Week 2: 
 	1. 
 	2. 
