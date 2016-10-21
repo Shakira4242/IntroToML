@@ -180,8 +180,12 @@ def handwritingNumberDetector():
 
 
 
-    img = Image.open('1.jpg')
+    img = Image.open('5.jpg')
     gray = img.convert('1')
+
+    img.save('grayImg.jpg')
+
+
     img = gray
     img.thumbnail((32,32), Image.ANTIALIAS)
     img.save('resizedImg.jpg')
@@ -197,9 +201,9 @@ def handwritingNumberDetector():
                 img[i][j] = 1
 
     imgVector = img.flatten()
-    print(img.shape)
 
     classifierResult = classify0(imgVector, trainingMat, hwLabels, 3)
+    print("result in next line")
     print(classifierResult)
 
 
